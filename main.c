@@ -72,10 +72,7 @@ int main()
 
 	// Vector Table Relocation in Internal FLASH
 	SCB->VTOR = FLASH_BASE;
-
 	rccInit();
-	//usart1Init();
-	//usart1WriteString("Initialised.\n");
 	//flashReset();
 
 	// Initialise RAM content from FLASH_RAM using DMA
@@ -90,15 +87,9 @@ int main()
 			DMA_CCR_MINC | DMA_CCR_PINC |
 			DMA_CCR_TCIE | DMA_CCR_EN;
 	do
-		__WFE();
+		__WFE();	// Wait for event
 	while (!(DMA1->ISR & DMA_ISR_TCIF1));
 
-	// Vector Table Relocation in Internal SRAM
-	SCB->VTOR = SRAM_BASE;
-
-	//usart1WriteString("SRAM copied, resetting...\n");
-	//while (!usart1Ready());
-	//*(uint32_t *)(SRAM_BASE + 4UL) = *(uint32_t *)(FLASH_BASE + 4UL);
 	// Software reset
 	NVIC_SystemReset();
 	for (;;);
