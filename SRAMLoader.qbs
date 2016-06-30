@@ -15,6 +15,7 @@ Project {
         Depends {name: "CMSIS"}
         cpp.linkerScripts: ["STM32F103C8_FLASH.ld"]
         cpp.includePaths: [".", "usb"]
+        cpp.linkerFlags: ["-nostartfiles"]
 
         Properties {
             condition: qbs.buildVariant == "debug"
